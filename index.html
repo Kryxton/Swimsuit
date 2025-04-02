@@ -73,7 +73,6 @@
       text-shadow: 0 0 4px rgba(0,0,0,0.7);
     }
     .accent {
-      /* Updated accent style to match the headline gradient */
       background: linear-gradient(90deg, #0ff, #FFC107);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -240,7 +239,7 @@
 <body>
 
   <!-- Background Video -->
-  <video id="bgVideo" autoplay loop muted playsinline>
+  <video id="bgVideo" autoplay loop muted playsinline preload="auto">
     <source src="beach.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -279,13 +278,13 @@
         rel="noopener noreferrer" 
         class="social-item"
       >
-        <img src="Pumpfun.jpeg" alt="Pumpfun">
+        <img src="pumpfun.jpeg" alt="Pumpfun">
       </a>
     </div>
 
     <!-- Contract Address Section -->
     <div class="ca-section">
-      <div class="ca-box" id="caAddress">CA</div>
+      <div class="ca-box" id="caAddress">INSERT_YOUR_CONTRACT_ADDRESS_HERE</div>
       <button class="copy-btn" onclick="copyCA()">Copy</button>
     </div>
 
@@ -294,13 +293,6 @@
       <img src="suit1.jpeg" alt="Suit 1" class="active">
       <img src="suit2.jpeg" alt="Suit 2">
       <img src="suit3.jpeg" alt="Suit 3">
-  <img src="suit4.jpeg" alt="Suit 3">
- <img src="suit5.jpeg" alt="Suit 3">
- <img src="suit6.jpeg" alt="Suit 3">
- <img src="suit7.jpeg" alt="Suit 3">
- <img src="suit8.jpeg" alt="Suit 3">
- <img src="suit9.jpeg" alt="Suit 3">
- <img src="suit10.jpeg" alt="Suit 3">
     </div>
 
     <!-- How To Buy Section -->
@@ -319,12 +311,20 @@
   <!-- Chart Container as the last section -->
   <div class="chart-container">
     <iframe 
-      src="https://dexscreener.com/solana/CA?embed=1&view=chart"
+      src="https://dexscreener.com/solana/INSERT_YOUR_TOKEN_ADDRESS_HERE?embed=1&view=chart"
       allowfullscreen
     ></iframe>
   </div>
 
   <script>
+    // Ensure the background video starts playing once it is ready
+    window.addEventListener('load', function() {
+      const bgVideo = document.getElementById('bgVideo');
+      bgVideo.play().catch(err => {
+        console.error('Video playback failed:', err);
+      });
+    });
+
     // Copy Contract Address Function
     function copyCA() {
       const caText = document.getElementById("caAddress").textContent.trim();
