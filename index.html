@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Responsive Meta Tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$swimsuit - Swimsuit Season</title>
+
+  <!-- Google Font for a clean, modern look -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" 
+    rel="stylesheet"
+  >
+
+  <style>
+    /* RESET & BASE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      color: #fff; /* Global text color white */
+    }
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND VIDEO */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; /* Ensures video stays behind content */
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay for readability */
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    /* HEADLINE & TEXT */
+    h1, h2, p {
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+    h1 {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #0ff, #FFC107); /* Neon blue to golden */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    }
+    p {
+      font-size: 1rem;
+      color: #fff;
+      text-shadow: 0 0 4px rgba(0,0,0,0.7);
+    }
+    .accent {
+      /* Updated accent style to match the headline gradient */
+      background: linear-gradient(90deg, #0ff, #FFC107);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* HEADER IMAGE */
+    .header-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    /* SOCIALS SECTION */
+    .socials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .social-item {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px dashed #FFC107;
+      transition: background-color 0.2s;
+    }
+    .social-item:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    .social-item img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+    }
+
+    /* CONTRACT ADDRESS SECTION */
+    .ca-section {
+      margin: 20px auto;
+      max-width: 500px;
+      text-align: center;
+    }
+    .ca-box {
+      background-color: rgba(255, 255, 255, 0.25);
+      border: 1px dashed #FFC107;
+      border-radius: 4px;
+      padding: 12px;
+      font-size: 1em;
+      color: #fff;
+      word-break: break-all;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .ca-box:hover {
+      background-color: rgba(255, 255, 255, 0.35);
+    }
+    .copy-btn {
+      background-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      border: 1px solid #FFC107;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .copy-btn:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* PHOTO SLIDER SECTION */
+    .photo-slider {
+      position: relative;
+      width: 100%;
+      /* Use aspect ratio of 2:3 (width:height) */
+      aspect-ratio: 2 / 3;
+      margin: 30px 0;
+      overflow: hidden;
+    }
+    .photo-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .photo-slider img.active {
+      opacity: 1;
+    }
+
+    /* HOW TO BUY SECTION (Transparent background) */
+    .how-to-buy {
+      margin: 20px 0;
+      background-color: transparent;
+      border: 1px dashed #FFC107;
+      border-radius: 4px;
+      padding: 15px;
+      text-align: left;
+      font-size: 1rem;
+      color: #fff;
+    }
+    .how-to-buy h2 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    .how-to-buy ol {
+      padding-left: 20px;
+      line-height: 1.6;
+      margin: 1em 0;
+      color: #fff;
+    }
+    .how-to-buy li {
+      margin-bottom: 10px;
+    }
+
+    /* CHART CONTAINER */
+    .chart-container {
+      width: 100%;
+      max-width: 700px;
+      margin: 40px auto;
+      border: 1px dashed #FFC107;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .chart-container iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: block;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video id="bgVideo" autoplay loop muted playsinline>
+    <source src="beach.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="container">
+    <!-- Main Headline -->
+    <h1>Swimsuit Season</h1>
+    <p>Welcome to <span class="accent">$swimsuit</span> on Solana. Dive into the future of beach vibes.</p>
+
+    <!-- Header Image -->
+    <div class="header-image">
+      <img src="swimsuit.jpeg" alt="swimsuit header">
+    </div>
+
+    <!-- Socials Section -->
+    <div class="socials">
+      <a 
+        href="https://t.me/swimsuitcoin" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-item"
+      >
+        <img src="telegram.jpeg" alt="Telegram">
+      </a>
+      <a 
+        href="https://dexscreener.com/solana/INSERT_YOUR_TOKEN_ADDRESS_HERE" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-item"
+      >
+        <img src="dex.jpeg" alt="DEX">
+      </a>
+      <a 
+        href="https://pump.fun/coin/INSERT_YOUR_TOKEN_ADDRESS_HERE" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-item"
+      >
+        <img src="Pumpfun.jpeg" alt="Pumpfun">
+      </a>
+    </div>
+
+    <!-- Contract Address Section -->
+    <div class="ca-section">
+      <div class="ca-box" id="caAddress">CA</div>
+      <button class="copy-btn" onclick="copyCA()">Copy</button>
+    </div>
+
+    <!-- Photo Slider Section -->
+    <div class="photo-slider" id="photoSlider">
+      <img src="suit1.jpeg" alt="Suit 1" class="active">
+      <img src="suit2.jpeg" alt="Suit 2">
+      <img src="suit3.jpeg" alt="Suit 3">
+  <img src="suit4.jpeg" alt="Suit 3">
+ <img src="suit5.jpeg" alt="Suit 3">
+ <img src="suit6.jpeg" alt="Suit 3">
+ <img src="suit7.jpeg" alt="Suit 3">
+ <img src="suit8.jpeg" alt="Suit 3">
+ <img src="suit9.jpeg" alt="Suit 3">
+ <img src="suit10.jpeg" alt="Suit 3">
+    </div>
+
+    <!-- How To Buy Section -->
+    <div class="how-to-buy">
+      <h2>How to Buy <span class="accent">$swimsuit</span></h2>
+      <ol>
+        <li>Create or open a Solana-compatible wallet (e.g., Phantom).</li>
+        <li>Fund your wallet with SOL.</li>
+        <li>Go to a Solana DEX (e.g., Raydium, Jupiter) and connect your wallet.</li>
+        <li>Use the token address above to find <span class="accent">$swimsuit</span>.</li>
+        <li>Swap your SOL for <span class="accent">$swimsuit</span> and confirm your transaction.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Chart Container as the last section -->
+  <div class="chart-container">
+    <iframe 
+      src="https://dexscreener.com/solana/CA?embed=1&view=chart"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <script>
+    // Copy Contract Address Function
+    function copyCA() {
+      const caText = document.getElementById("caAddress").textContent.trim();
+      navigator.clipboard.writeText(caText)
+        .then(() => {
+          alert("Contract Address copied!");
+        })
+        .catch(err => {
+          console.error("Failed to copy text: ", err);
+        });
+    }
+
+    // Simple Photo Slider Logic
+    const slides = document.querySelectorAll('#photoSlider img');
+    let currentSlide = 0;
+    setInterval(nextSlide, 3000); // Change slide every 3 seconds
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+  </script>
+</body>
+</html>
